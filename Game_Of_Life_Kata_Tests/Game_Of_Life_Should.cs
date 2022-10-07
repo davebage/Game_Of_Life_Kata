@@ -34,5 +34,15 @@ namespace Game_Of_Life_Kata_Tests
 
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
+
+        [Test]
+        public void Process_Two_Live_Cells_In_A_Row()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[] { true, true });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
+        }
     }
 }

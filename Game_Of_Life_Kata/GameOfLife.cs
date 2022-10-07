@@ -18,10 +18,10 @@
             if (_cells.SequenceEqual(new bool[] { false, false, false }))
                 return new bool[] { false, false, false };
 
-            if (_cells.SequenceEqual(new bool[] { true, true, true }))
-                return new bool[] { false, true, false };
-
             if (_cells.SequenceEqual(new bool[] { true, false, false }))
+                return new bool[] { false, false, false };
+
+            if (_cells.SequenceEqual(new bool[] { true, true, false }))
                 return new bool[] { false, false, false };
 
             return new bool[] { false };

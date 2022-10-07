@@ -51,8 +51,8 @@ namespace Game_Of_Life_Kata_Tests
 
         [Test]
         [TestCase(new bool[] { false, false, false }, new bool[] { false, false, false })]
-        [TestCase(new bool[] { true, true, true }, new bool[] { false, true, false })]
         [TestCase(new bool[] { true, false, false }, new bool[] { false, false, false })]
+        [TestCase(new bool[] { true, true, false }, new bool[] { false, false, false })]
         public void Process_Three_Cells_For_Expected_Result(bool[] seed, bool[] expected)
         {
             var gameOfLife = new GameOfLife();

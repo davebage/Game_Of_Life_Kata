@@ -15,6 +15,10 @@
             if(_cells.SequenceEqual(new bool[] { true, true }))
                 return new bool[] { false, false };
 
+            if (_cells.SequenceEqual(new bool[] { true, false }))
+                return new bool[] { false, false };
+
+
             return new bool[] { false };
         }
     }

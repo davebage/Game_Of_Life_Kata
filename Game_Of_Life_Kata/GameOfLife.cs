@@ -5,26 +5,35 @@
         private bool[] _cells;
         public bool Seed(bool[] seedPattern)
         {
-            if(seedPattern == null) return false;
+            if (seedPattern == null) return false;
             _cells = seedPattern;
             return true;
         }
 
         public bool[] Tick()
         {
-            if(_cells.GetLength(0) == 2)
-                return new bool[] { false, false };
+            var result = new bool[_cells.Length];
 
-            if (_cells.SequenceEqual(new bool[] { false, false, false }))
-                return new bool[] { false, false, false };
+            for (int columnIndex = 0; columnIndex <= _cells.Length - 1; columnIndex++)
+            {
+                var liveNeighbours = 0;
 
-            if (_cells.SequenceEqual(new bool[] { true, false, false }))
-                return new bool[] { false, false, false };
+                if (columnIndex - 1 >= 0 && _cells[columnIndex - 1])
+                    liveNeighbours++;
 
-            if (_cells.SequenceEqual(new bool[] { true, true, false }))
-                return new bool[] { false, false, false };
+                if (columnIndex + 1 <= _cells.Length - 1 && _cells[columnIndex + 1])
+                    liveNeighbours++;
 
-            return new bool[] { false };
+                result[columnIndex] = false;
+
+                if (liveNeighbours == 2)
+                    result[columnIndex] = true;
+
+
+            }
+
+            return result;
+
         }
     }
 }

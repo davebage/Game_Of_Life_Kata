@@ -50,24 +50,16 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Three_Cells_Dead_Dead_Dead_In_A_Row()
+        [TestCase(new bool[] { false, false, false }, new bool[] { false, false, false })]
+        [TestCase(new bool[] { true, true, true }, new bool[] { false, true, false })]
+        [TestCase(new bool[] { true, false, false }, new bool[] { false, false, false })]
+        public void Process_Three_Cells_For_Expected_Result(bool[] seed, bool[] expected)
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[] { false, false, false });
+            gameOfLife.Seed(seed);
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
-
-        [Test]
-        public void Process_Three_Cells_Alive_Alive_Alive_In_A_Row()
-        {
-            var gameOfLife = new GameOfLife();
-
-            gameOfLife.Seed(new bool[] { true, true, true });
-
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, true, false }));
-        }
-
     }
 }

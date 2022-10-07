@@ -12,18 +12,14 @@
 
         public bool[] Tick()
         {
-            if(_cells.SequenceEqual(new bool[] { true, true }))
+            if(_cells.GetLength(0) == 2)
                 return new bool[] { false, false };
 
-            if (_cells.SequenceEqual(new bool[] { true, false }))
-                return new bool[] { false, false };
+            if (_cells.SequenceEqual(new bool[] { false, false, false }))
+                return new bool[] { false, false, false };
 
-            if (_cells.SequenceEqual(new bool[] { false, true }))
-                return new bool[] { false, false };
-
-            if (_cells.SequenceEqual(new bool[] { false, false }))
-                return new bool[] { false, false };
-
+            if (_cells.SequenceEqual(new bool[] { true, true, true }))
+                return new bool[] { false, true, false };
 
             return new bool[] { false };
         }

@@ -36,43 +36,17 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Two_Live_Cells_In_A_Row()
+        [TestCase(new bool[] { true, true }, new bool[] { false, false })]
+        [TestCase(new bool[] { true, false }, new bool[] { false, false })]
+        [TestCase(new bool[] { false, true }, new bool[] { false, false })]
+        [TestCase(new bool[] { false, false }, new bool[] { false, false })]
+        public void Process_Two_Cells_For_Expected_Result(bool[] seed, bool[] expected)
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[] { true, true });
+            gameOfLife.Seed(seed);
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
-        }
-
-        [Test]
-        public void Process_Two_Cells_Alive_Dead_In_A_Row()
-        {
-            var gameOfLife = new GameOfLife();
-
-            gameOfLife.Seed(new bool[] { true, false });
-
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
-        }
-
-        [Test]
-        public void Process_Two_Cells_Dead_Alive_In_A_Row()
-        {
-            var gameOfLife = new GameOfLife();
-
-            gameOfLife.Seed(new bool[] { false, true });
-
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
-        }
-
-        [Test]
-        public void Process_Two_Cells_Dead_Dead_In_A_Row()
-        {
-            var gameOfLife = new GameOfLife();
-
-            gameOfLife.Seed(new bool[] { false, false });
-
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]

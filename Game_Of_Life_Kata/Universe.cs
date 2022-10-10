@@ -21,24 +21,41 @@ public class Universe
             {
                 var liveNeighbours = 0;
 
+                // Check cell to the left
                 if (columnIndex - 1 >= 0 && _cells[rowIndex, columnIndex - 1].CompareStatus(Status.Alive))
                     liveNeighbours++;
 
-                if (columnIndex + 1 <= maxColumns - 1 && _cells[rowIndex, columnIndex + 1].CompareStatus(Status.Alive))
+                // Check cell to the right
+                if (columnIndex + 1 < maxColumns && _cells[rowIndex, columnIndex + 1].CompareStatus(Status.Alive))
                     liveNeighbours++;
 
                 result[rowIndex, columnIndex] = new Cell(Status.Dead);
 
-                if(rowIndex -1 >= 0 && _cells[rowIndex-1, columnIndex].CompareStatus(Status.Alive))
+                // Check cell directly above
+                if (rowIndex - 1 >= 0 && _cells[rowIndex - 1, columnIndex].CompareStatus(Status.Alive))
                     liveNeighbours++;
 
-                if (rowIndex + 1 <= maxRows - 1 && _cells[rowIndex+1, columnIndex].CompareStatus(Status.Alive))
+                // Check cell below and left
+                if (rowIndex + 1 < maxRows && columnIndex - 1 >= 0 &&
+                    _cells[rowIndex + 1, columnIndex - 1].CompareStatus(Status.Alive))
+                    liveNeighbours++;
+
+                // Check cell directly below
+                if (rowIndex + 1 <= maxRows - 1 && _cells[rowIndex + 1, columnIndex].CompareStatus(Status.Alive))
+                    liveNeighbours++;
+
+                // Check cell below and right
+                if (rowIndex + 1 < maxRows && columnIndex + 1 < maxColumns &&
+                    _cells[rowIndex + 1, columnIndex + 1].CompareStatus(Status.Alive))
                     liveNeighbours++;
 
                 if (liveNeighbours == 2 && _cells[rowIndex, columnIndex].CompareStatus(Status.Alive))
                     result[rowIndex, columnIndex] = new Cell(Status.Alive);
+
+                if (liveNeighbours == 3 && _cells[rowIndex, columnIndex].CompareStatus(Status.Dead))
+                    result[rowIndex, columnIndex] = new Cell(Status.Alive);
             }
-            
+
         }
 
 

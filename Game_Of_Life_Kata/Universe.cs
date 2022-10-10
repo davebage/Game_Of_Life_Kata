@@ -33,7 +33,6 @@ public class Universe
 
         }
 
-
         return result;
     }
 
@@ -42,6 +41,7 @@ public class Universe
         var liveNeighbours = 0;
         var maxColumns = _cells.GetLength(1);
         var maxRows = _cells.GetLength(0);
+
         // Check cell above and left
         if (rowIndex - 1 >= 0 && columnIndex - 1 >= 0 &&
             _cells[rowIndex - 1, columnIndex - 1].CompareStatus(Status.Alive))

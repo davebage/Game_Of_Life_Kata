@@ -91,7 +91,7 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Three_Cells_With_Zero_Live_Cells()
+        public void Process_Three_Cells_In_A_Row_With_Zero_Live_Cells()
         {
             var gameOfLife = new GameOfLife();
 
@@ -102,7 +102,7 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Three_Cells_With_No_Live_Cells()
+        public void Process_Three_Cells_In_A_Row_With_No_Live_Cells()
         {
             var gameOfLife = new GameOfLife();
 
@@ -113,7 +113,7 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Three_Cells_With_One_Live_Cell()
+        public void Process_Three_Cells_In_A_Row_With_One_Live_Cell()
         {
             var gameOfLife = new GameOfLife();
 
@@ -123,12 +123,32 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Three_Cells_With_Two_Live_Cell()
+        public void Process_Three_Cells_In_A_Row__With_Two_Live_Cell()
         {
             var gameOfLife = new GameOfLife();
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Dead) } });
             var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Process_Three_Cells_In_A_Row_With_All_Live_Cells()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Alive) } });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Alive), new Cell(Status.Dead) });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Process_Two_Dead_Cells_In_A_Column()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead) }, { new Cell(Status.Dead) } });
+            var expected = new Cell[,] { { new Cell(Status.Dead) }, { new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 

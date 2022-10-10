@@ -47,7 +47,7 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Two_Alive_Cells()
+        public void Process_Two_Alive_Cells_In_A_Row()
         {
             var gameOfLife = new GameOfLife();
 
@@ -58,7 +58,7 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Two_Cells_Alive_Dead()
+        public void Process_Two_Cells_Alive_Dead_In_A_Row()
         {
             var gameOfLife = new GameOfLife();
 
@@ -69,7 +69,7 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Two_Cells_Dead_Alive()
+        public void Process_Two_Cells_Dead_Alive_In_A_Row()
         {
             var gameOfLife = new GameOfLife();
 
@@ -80,7 +80,7 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Two_Dead_Cells()
+        public void Process_Two_Dead_Cells_In_A_Row()
         {
             var gameOfLife = new GameOfLife();
 
@@ -112,12 +112,22 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        public void Process_Three_Cells_In_A_Row__With_Two_Live_Cell()
+        public void Process_Three_Cells_In_A_Row_With_Two_Live_Cells_First()
         {
             var gameOfLife = new GameOfLife();
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Dead) } });
             var expected = new Cell[,] { {new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) }};
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Process_Three_Cells_In_A_Row_With_Two_Live_Cells_First_And_Last()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Dead), new Cell(Status.Alive) } });
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 

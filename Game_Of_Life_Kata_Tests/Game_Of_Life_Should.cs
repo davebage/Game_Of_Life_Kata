@@ -12,7 +12,7 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            Assert.IsTrue(gameOfLife.Seed(new bool[,] { { true } }));
+            Assert.IsTrue(gameOfLife.Seed(new bool[] { true }));
         }
 
         [Test]
@@ -28,9 +28,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true } });
+            gameOfLife.Seed(new bool[] { true });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false }));
         }
 
         [Test]
@@ -38,9 +38,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false } });
+            gameOfLife.Seed(new bool[] { false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false }));
         }
 
         [Test]
@@ -48,9 +48,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true, true } });
+            gameOfLife.Seed(new bool[] { true, true });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
         }
 
         [Test]
@@ -58,9 +58,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true, false } });
+            gameOfLife.Seed(new bool[] { true, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
         }
 
         [Test]
@@ -68,9 +68,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, true } });
+            gameOfLife.Seed(new bool[] { false, true });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
         }
 
         [Test]
@@ -78,9 +78,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, false } });
+            gameOfLife.Seed(new bool[] { false, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
         }
 
         [Test]
@@ -88,9 +88,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, false, false } });
+            gameOfLife.Seed(new bool[] { false, false, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false, false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
         }
 
         [Test]
@@ -98,9 +98,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, false, false } });
+            gameOfLife.Seed(new bool[] { false, false, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false, false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
         }
 
         [Test]
@@ -108,9 +108,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true, false, false } });
+            gameOfLife.Seed(new bool[] { true, false, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false, false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
         }
 
         [Test]
@@ -118,9 +118,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true, true, false } });
+            gameOfLife.Seed(new bool[] { true, true, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false, false } }));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
         }
     }
 }

@@ -2,32 +2,32 @@
 {
     public class GameOfLife
     {
-        private bool[] _cells;
-        public bool Seed(bool[] seedPattern)
+        private bool[,] _cells;
+        public bool Seed(bool[,] seedPattern)
         {
             if (seedPattern == null) return false;
             _cells = seedPattern;
             return true;
         }
 
-        public bool[] Tick()
+        public bool[,] Tick()
         {
-            var result = new bool[_cells.Length];
+            var result = new bool[_cells.GetLength(0), _cells.GetLength(1)];
 
-            for (int columnIndex = 0; columnIndex <= _cells.Length - 1; columnIndex++)
+            for (int rowIndex = 0; rowIndex <= _cells.GetLength(0) - 1; rowIndex++)
             {
                 var liveNeighbours = 0;
 
-                if (columnIndex - 1 >= 0 && _cells[columnIndex - 1])
+                if (rowIndex - 1 >= 0 && _cells[rowIndex - 1, 0])
                     liveNeighbours++;
 
-                if (columnIndex + 1 <= _cells.Length - 1 && _cells[columnIndex + 1])
+                if (rowIndex + 1 <= _cells.GetLength(0) - 1 && _cells[rowIndex + 1, 0])
                     liveNeighbours++;
 
-                result[columnIndex] = false;
+                result[rowIndex, 0] = false;
 
                 if (liveNeighbours == 2)
-                    result[columnIndex] = true;
+                    result[rowIndex, 0] = true;
 
 
             }

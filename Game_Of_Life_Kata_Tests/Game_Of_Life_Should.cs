@@ -12,7 +12,7 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            Assert.IsTrue(gameOfLife.Seed(new bool[] { true }));
+            Assert.IsTrue(gameOfLife.Seed(new bool[,] { { true } }));
         }
 
         [Test]
@@ -24,42 +24,103 @@ namespace Game_Of_Life_Kata_Tests
         }
 
         [Test]
-        [TestCase(new bool[] { true }, new bool[] { false })]
-        [TestCase(new bool[] { false }, new bool[] { false })]
-        public void Process_Single_Cell_For_Expected_Result(bool[] seed, bool[] expected)
+        public void ProcessSingleLiveCell()
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(seed);
+            gameOfLife.Seed(new bool[,] { { true } });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false } }));
         }
 
         [Test]
-        [TestCase(new bool[] { true, true }, new bool[] { false, false })]
-        [TestCase(new bool[] { true, false }, new bool[] { false, false })]
-        [TestCase(new bool[] { false, true }, new bool[] { false, false })]
-        [TestCase(new bool[] { false, false }, new bool[] { false, false })]
-        public void Process_Two_Cells_For_Expected_Result(bool[] seed, bool[] expected)
+        public void ProcessSingleDeadCell()
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(seed);
+            gameOfLife.Seed(new bool[,] { { false } });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false } }));
         }
 
         [Test]
-        [TestCase(new bool[] { false, false, false }, new bool[] { false, false, false })]
-        [TestCase(new bool[] { true, false, false }, new bool[] { false, false, false })]
-        [TestCase(new bool[] { true, true, false }, new bool[] { false, false, false })]
-        public void Process_Three_Cells_For_Expected_Result(bool[] seed, bool[] expected)
+        public void Process_Two_Alive_Cells()
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(seed);
+            gameOfLife.Seed(new bool[,] { { true, true } });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false } }));
+        }
+
+        [Test]
+        public void Process_Two_Cells_Alive_Dead()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[,] { { true, false } });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false } }));
+        }
+
+        [Test]
+        public void Process_Two_Cells_Dead_Alive()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[,] { { false, true } });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false } }));
+        }
+
+        [Test]
+        public void Process_Two_Dead_Cells()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[,] { { false, false } });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false } }));
+        }
+
+        [Test]
+        public void Process_Three_Cells_With_Zero_Live_Cells()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[,] { { false, false, false } });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false, false } }));
+        }
+
+        [Test]
+        public void Process_Three_Cells_With_No_Live_Cells()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[,] { { false, false, false } });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false, false } }));
+        }
+
+        [Test]
+        public void Process_Three_Cells_With_One_Live_Cell()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[,] { { true, false, false } });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false, false } }));
+        }
+
+        [Test]
+        public void Process_Three_Cells_With_Two_Live_Cell()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[,] { { true, true, false } });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, false, false } }));
         }
     }
 }

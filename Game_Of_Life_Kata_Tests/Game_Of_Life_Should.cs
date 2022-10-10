@@ -1,3 +1,4 @@
+using System;
 using Game_Of_Life_Kata;
 using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
@@ -7,20 +8,21 @@ namespace Game_Of_Life_Kata_Tests
     [TestFixture]
     public class Game_Of_Life_Should
     {
-        [Test]
-        public void Allow_Seed_Pattern()
-        {
-            var gameOfLife = new GameOfLife();
-
-            Assert.IsTrue(gameOfLife.Seed(new bool[] { true }));
-        }
 
         [Test]
         public void Not_Allow_Empty_Seed_Pattern()
         {
             var gameOfLife = new GameOfLife();
 
-            Assert.IsFalse(gameOfLife.Seed(null));
+            Assert.Throws<ArgumentException>(() => gameOfLife.Seed(Array.Empty<bool>()));
+        }
+
+        [Test]
+        public void Allow_Seed_Pattern()
+        {
+            var gameOfLife = new GameOfLife();
+
+            Assert.IsTrue(gameOfLife.Seed(new bool[] { true }));
         }
 
         [Test]
@@ -128,16 +130,6 @@ namespace Game_Of_Life_Kata_Tests
             gameOfLife.Seed(new bool[] { true, true, false });
             var expected = GenerateExpected(new bool[] { false, false, false });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void Process_Three_Live_Cells()
-        {
-            var gameOfLife = new GameOfLife();
-
-            gameOfLife.Seed(new bool[] { true, true, true });
-
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, true, false }, { false, true, false }, { false, true, false } }));
         }
 
         private bool[,] GenerateExpected(bool[] oneDimensionalArray)

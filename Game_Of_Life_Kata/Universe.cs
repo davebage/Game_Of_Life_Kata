@@ -30,9 +30,18 @@ public class Universe
                     liveNeighbours++;
 
                 result[rowIndex, columnIndex] = new Cell(Status.Dead);
+                // Check cell above and left
+                if (rowIndex - 1 >= 0 && columnIndex - 1 >= 0 &&
+                    _cells[rowIndex - 1, columnIndex - 1].CompareStatus(Status.Alive))
+                    liveNeighbours++;
 
                 // Check cell directly above
                 if (rowIndex - 1 >= 0 && _cells[rowIndex - 1, columnIndex].CompareStatus(Status.Alive))
+                    liveNeighbours++;
+
+                // Check cell above and right
+                if (rowIndex - 1 >= 0 && columnIndex + 1 < maxColumns &&
+                    _cells[rowIndex - 1, columnIndex + 1].CompareStatus(Status.Alive))
                     liveNeighbours++;
 
                 // Check cell below and left

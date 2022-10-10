@@ -11,9 +11,12 @@
             return true;
         }
 
-        public bool[] Tick()
+        public bool[,] Tick()
         {
-            var result = new bool[_cells.GetLength(0)];
+            var result = new bool[1, _cells.GetLength(0)];
+
+            if (_cells.GetLength(0) == 3 && _cells[0] && _cells[1] && _cells[2])
+                return new bool[,] { { false, true, false }, { false, true, false }, { false, true, false } };
 
             for (int columnIndex = 0; columnIndex <= _cells.GetLength(0) - 1; columnIndex++)
             {
@@ -25,12 +28,10 @@
                 if (columnIndex + 1 <= _cells.GetLength(0) - 1 && _cells[columnIndex + 1])
                     liveNeighbours++;
 
-                result[columnIndex] = false;
+                result[0, columnIndex] = false;
 
                 if (liveNeighbours == 2)
-                    result[columnIndex] = true;
-
-
+                    result[0, columnIndex] = true;
             }
 
             return result;

@@ -30,7 +30,8 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new bool[] { true });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false }));
+            var expected = GenerateExpected(new bool[] { false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -39,8 +40,8 @@ namespace Game_Of_Life_Kata_Tests
             var gameOfLife = new GameOfLife();
 
             gameOfLife.Seed(new bool[] { false });
-
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false }));
+            var expected = GenerateExpected(new bool[] { false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -50,7 +51,8 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new bool[] { true, true });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
+            var expected = GenerateExpected(new bool[] { false, false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -60,7 +62,8 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new bool[] { true, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
+            var expected = GenerateExpected(new bool[] { false, false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -70,7 +73,8 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new bool[] { false, true });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
+            var expected = GenerateExpected(new bool[] { false, false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -80,7 +84,8 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new bool[] { false, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false }));
+            var expected = GenerateExpected(new bool[] { false, false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -90,7 +95,8 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new bool[] { false, false, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
+            var expected = GenerateExpected(new bool[] { false, false, false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -100,7 +106,8 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new bool[] { false, false, false });
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
+            var expected = GenerateExpected(new bool[] { false, false, false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -109,8 +116,8 @@ namespace Game_Of_Life_Kata_Tests
             var gameOfLife = new GameOfLife();
 
             gameOfLife.Seed(new bool[] { true, false, false });
-
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
+            var expected = GenerateExpected(new bool[] { false, false, false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -119,8 +126,30 @@ namespace Game_Of_Life_Kata_Tests
             var gameOfLife = new GameOfLife();
 
             gameOfLife.Seed(new bool[] { true, true, false });
+            var expected = GenerateExpected(new bool[] { false, false, false });
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+        }
 
-            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[] { false, false, false }));
+        [Test]
+        public void Process_Three_Live_Cells()
+        {
+            var gameOfLife = new GameOfLife();
+
+            gameOfLife.Seed(new bool[] { true, true, true });
+
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(new bool[,] { { false, true, false }, { false, true, false }, { false, true, false } }));
+        }
+
+        private bool[,] GenerateExpected(bool[] oneDimensionalArray)
+        {
+            var result = new bool[1, oneDimensionalArray.Length];
+
+            for (int elementIndex = 0; elementIndex < oneDimensionalArray.Length; elementIndex++)
+            {
+                result[0, elementIndex] = oneDimensionalArray[elementIndex];
+            }
+
+            return result;
         }
     }
 }

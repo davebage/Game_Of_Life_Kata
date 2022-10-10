@@ -237,5 +237,47 @@ namespace Game_Of_Life_Kata_Tests
             gameOfLife.Seed(seed);
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
+
+        [Test]
+        public void Process_Three_Live_Cells_In_Column_Right()
+        {
+            var gameOfLife = new GameOfLife();
+
+            var seed = new Cell[,] {
+                { new Cell(Status.Dead), new Cell(Status.Alive) },
+                { new Cell(Status.Dead), new Cell(Status.Alive) },
+                { new Cell(Status.Dead), new Cell(Status.Alive) }
+            };
+
+            var expected = new Cell[,]
+            {
+                { new Cell(Status.Dead), new Cell(Status.Dead) },
+                { new Cell(Status.Alive), new Cell(Status.Alive) },
+                { new Cell(Status.Dead), new Cell(Status.Dead) }
+            };
+                gameOfLife.Seed(seed);
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Process_Three_Live_Cells_In_Column_Left()
+        {
+            var gameOfLife = new GameOfLife();
+
+            var seed = new Cell[,] {
+                { new Cell(Status.Alive), new Cell(Status.Dead) },
+                { new Cell(Status.Alive), new Cell(Status.Dead) },
+                { new Cell(Status.Alive), new Cell(Status.Dead) }
+            };
+
+            var expected = new Cell[,]
+            {
+                { new Cell(Status.Dead), new Cell(Status.Dead) },
+                { new Cell(Status.Alive), new Cell(Status.Alive) },
+                { new Cell(Status.Dead), new Cell(Status.Dead) }
+            };
+            gameOfLife.Seed(seed);
+            Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
+        }
     }
 }

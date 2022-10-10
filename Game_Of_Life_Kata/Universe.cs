@@ -21,15 +21,21 @@ public class Universe
             {
                 var liveNeighbours = 0;
 
-                if (columnIndex - 1 >= 0 && _cells[0, columnIndex - 1].CompareStatus(Status.Alive))
+                if (columnIndex - 1 >= 0 && _cells[rowIndex, columnIndex - 1].CompareStatus(Status.Alive))
                     liveNeighbours++;
 
-                if (columnIndex + 1 <= maxColumns - 1 && _cells[0, columnIndex + 1].CompareStatus(Status.Alive))
+                if (columnIndex + 1 <= maxColumns - 1 && _cells[rowIndex, columnIndex + 1].CompareStatus(Status.Alive))
                     liveNeighbours++;
 
                 result[rowIndex, columnIndex] = new Cell(Status.Dead);
 
-                if (liveNeighbours == 2)
+                if(rowIndex -1 >= 0 && _cells[rowIndex-1, columnIndex].CompareStatus(Status.Alive))
+                    liveNeighbours++;
+
+                if (rowIndex + 1 <= maxRows - 1 && _cells[rowIndex+1, columnIndex].CompareStatus(Status.Alive))
+                    liveNeighbours++;
+
+                if (liveNeighbours == 2 && _cells[rowIndex, columnIndex].CompareStatus(Status.Alive))
                     result[rowIndex, columnIndex] = new Cell(Status.Alive);
             }
             

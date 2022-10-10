@@ -9,6 +9,7 @@ public class Universe
         _cells = cells ?? throw new ArgumentNullException(nameof(cells));
     }
 
+
     public Cell[,] NextGeneration()
     {
         var maxRows = _cells.GetLength(0);
@@ -19,44 +20,9 @@ public class Universe
         {
             for (int columnIndex = 0; columnIndex <= maxColumns - 1; columnIndex++)
             {
-                var liveNeighbours = 0;
-
-                // Check cell to the left
-                if (columnIndex - 1 >= 0 && _cells[rowIndex, columnIndex - 1].CompareStatus(Status.Alive))
-                    liveNeighbours++;
-
-                // Check cell to the right
-                if (columnIndex + 1 < maxColumns && _cells[rowIndex, columnIndex + 1].CompareStatus(Status.Alive))
-                    liveNeighbours++;
+                var liveNeighbours = CountLiveNeighbours(rowIndex, columnIndex);
 
                 result[rowIndex, columnIndex] = new Cell(Status.Dead);
-                // Check cell above and left
-                if (rowIndex - 1 >= 0 && columnIndex - 1 >= 0 &&
-                    _cells[rowIndex - 1, columnIndex - 1].CompareStatus(Status.Alive))
-                    liveNeighbours++;
-
-                // Check cell directly above
-                if (rowIndex - 1 >= 0 && _cells[rowIndex - 1, columnIndex].CompareStatus(Status.Alive))
-                    liveNeighbours++;
-
-                // Check cell above and right
-                if (rowIndex - 1 >= 0 && columnIndex + 1 < maxColumns &&
-                    _cells[rowIndex - 1, columnIndex + 1].CompareStatus(Status.Alive))
-                    liveNeighbours++;
-
-                // Check cell below and left
-                if (rowIndex + 1 < maxRows && columnIndex - 1 >= 0 &&
-                    _cells[rowIndex + 1, columnIndex - 1].CompareStatus(Status.Alive))
-                    liveNeighbours++;
-
-                // Check cell directly below
-                if (rowIndex + 1 <= maxRows - 1 && _cells[rowIndex + 1, columnIndex].CompareStatus(Status.Alive))
-                    liveNeighbours++;
-
-                // Check cell below and right
-                if (rowIndex + 1 < maxRows && columnIndex + 1 < maxColumns &&
-                    _cells[rowIndex + 1, columnIndex + 1].CompareStatus(Status.Alive))
-                    liveNeighbours++;
 
                 if (liveNeighbours == 2 && _cells[rowIndex, columnIndex].CompareStatus(Status.Alive))
                     result[rowIndex, columnIndex] = new Cell(Status.Alive);
@@ -69,5 +35,49 @@ public class Universe
 
 
         return result;
+    }
+
+    private int CountLiveNeighbours(int rowIndex, int columnIndex)
+    {
+        var liveNeighbours = 0;
+        var maxColumns = _cells.GetLength(1);
+        var maxRows = _cells.GetLength(0);
+        // Check cell above and left
+        if (rowIndex - 1 >= 0 && columnIndex - 1 >= 0 &&
+            _cells[rowIndex - 1, columnIndex - 1].CompareStatus(Status.Alive))
+            liveNeighbours++;
+
+        // Check cell directly above
+        if (rowIndex - 1 >= 0 && _cells[rowIndex - 1, columnIndex].CompareStatus(Status.Alive))
+            liveNeighbours++;
+
+        // Check cell above and right
+        if (rowIndex - 1 >= 0 && columnIndex + 1 < maxColumns &&
+            _cells[rowIndex - 1, columnIndex + 1].CompareStatus(Status.Alive))
+            liveNeighbours++;
+
+        // Check cell to the left
+        if (columnIndex - 1 >= 0 && _cells[rowIndex, columnIndex - 1].CompareStatus(Status.Alive))
+            liveNeighbours++;
+
+        // Check cell to the right
+        if (columnIndex + 1 < maxColumns && _cells[rowIndex, columnIndex + 1].CompareStatus(Status.Alive))
+            liveNeighbours++;
+
+        // Check cell below and left
+        if (rowIndex + 1 < maxRows && columnIndex - 1 >= 0 &&
+            _cells[rowIndex + 1, columnIndex - 1].CompareStatus(Status.Alive))
+            liveNeighbours++;
+
+        // Check cell directly below
+        if (rowIndex + 1 <= maxRows - 1 && _cells[rowIndex + 1, columnIndex].CompareStatus(Status.Alive))
+            liveNeighbours++;
+
+        // Check cell below and right
+        if (rowIndex + 1 < maxRows && columnIndex + 1 < maxColumns &&
+            _cells[rowIndex + 1, columnIndex + 1].CompareStatus(Status.Alive))
+            liveNeighbours++;
+
+        return liveNeighbours;
     }
 }

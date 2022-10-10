@@ -4,7 +4,7 @@
     {
         private Universe _universe;
 
-        public bool Seed(bool[,] seedPattern)
+        public bool Seed(Cell[,] seedPattern)
         {
             if (seedPattern.Length == 0) throw new ArgumentException();
 
@@ -13,7 +13,7 @@
             return true;
         }
 
-        public bool[,] Tick()
+        public Cell[,] Tick()
         {
             var result = _universe.NextGeneration();
 

@@ -14,7 +14,7 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            Assert.Throws<ArgumentException>(() => gameOfLife.Seed(new bool[0, 0]));
+            Assert.Throws<ArgumentException>(() => gameOfLife.Seed(new Cell[0, 0]));
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            Assert.IsTrue(gameOfLife.Seed(new bool[,] { { true } }));
+            Assert.IsTrue(gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive) } }));
         }
 
         [Test]
@@ -30,9 +30,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true } });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive) } });
 
-            var expected = GenerateExpected(new bool[] { false });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -41,8 +41,8 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false } });
-            var expected = GenerateExpected(new bool[] { false });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead) } });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -51,9 +51,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true, true } });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Alive) } });
 
-            var expected = GenerateExpected(new bool[] { false, false });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -62,9 +62,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true, false } });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Dead) } });
 
-            var expected = GenerateExpected(new bool[] { false, false });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -73,9 +73,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, true } });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Alive) } });
 
-            var expected = GenerateExpected(new bool[] { false, false });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -84,9 +84,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, false } });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead) } });
 
-            var expected = GenerateExpected(new bool[] { false, false });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -95,9 +95,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, false, false } });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } });
 
-            var expected = GenerateExpected(new bool[] { false, false, false });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -106,9 +106,9 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, false, false } });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } });
 
-            var expected = GenerateExpected(new bool[] { false, false, false });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -117,8 +117,8 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true, false, false } });
-            var expected = GenerateExpected(new bool[] { false, false, false });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Dead), new Cell(Status.Dead) } });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -127,8 +127,8 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { true, true, false } });
-            var expected = GenerateExpected(new bool[] { false, false, false });
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Dead) } });
+            var expected = GenerateExpected(new Cell[] { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) });
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -137,15 +137,15 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new bool[,] { { false, false, false }, { false, false, false } });
-            var expected = new bool[,] { { false, false, false }, { false, false, false } };
+            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) }, { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } });
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) }, { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
 
         }
 
-        private bool[,] GenerateExpected(bool[] oneDimensionalArray)
+        private Cell[,] GenerateExpected(Cell[] oneDimensionalArray)
         {
-            var result = new bool[1, oneDimensionalArray.Length];
+            var result = new Cell[1, oneDimensionalArray.Length];
 
             for (int elementIndex = 0; elementIndex < oneDimensionalArray.Length; elementIndex++)
             {

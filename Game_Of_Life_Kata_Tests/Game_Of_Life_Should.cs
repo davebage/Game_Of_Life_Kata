@@ -233,9 +233,9 @@ namespace Game_Of_Life_Kata_Tests
 
             var expected = new Cell[,]
             {
-                { new Cell(Status.Dead), new Cell(Status.Dead) },
-                { new Cell(Status.Alive), new Cell(Status.Alive) },
-                { new Cell(Status.Dead), new Cell(Status.Dead) }
+                { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) },
+                { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Alive) },
+                { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) }
             };
             gameOfLife.Seed(seed);
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));

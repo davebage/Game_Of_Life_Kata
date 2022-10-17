@@ -15,6 +15,10 @@ public class Universe
         var maxRows = _cells.GetLength(0);
         var maxColumns = _cells.GetLength(1);
         var result = new Cell[maxRows, maxColumns];
+
+        
+        
+        // START - Add new top row
         var newRow = new List<Cell>();
 
         for (var i = 0; i < maxColumns; i++)
@@ -32,6 +36,7 @@ public class Universe
         if (newRow.Any(x => x.CompareStatus(Status.Alive)))
             resultGrid.Add(newRow);
 
+        // Process main grid
         for (int rowIndex = 0; rowIndex < maxRows; rowIndex++)
         {
             var cellRow = new List<Cell>();
@@ -53,6 +58,7 @@ public class Universe
 
         }
 
+        // START - Add new bottom row
         newRow.Clear();
         for (var i = 0; i < maxColumns; i++)
             newRow.Add(new Cell(Status.Dead));
@@ -67,11 +73,14 @@ public class Universe
         if (newRow.Any(x => x.CompareStatus(Status.Alive)))
             resultGrid.Add(newRow);
 
+
+
+        // START - Add new left column
         var newColumn = new List<Cell>();
         for (var i = 0; i < resultGrid.Count; i++)
             newColumn.Add(new Cell(Status.Dead));
 
-        for (var rowIndex = 1; rowIndex < resultGrid.Count - 1; rowIndex++)
+        for (var rowIndex = 1; rowIndex < maxRows - 1; rowIndex++)
         {
             if (_cells[rowIndex - 1, 0].CompareStatus(Status.Alive) &&
                _cells[rowIndex, 0].CompareStatus(Status.Alive) &&
@@ -84,10 +93,12 @@ public class Universe
             for(int newColumnIndex = 0; newColumnIndex < resultGrid.Count; newColumnIndex++)
                 resultGrid[newColumnIndex].Insert(0, newColumn[newColumnIndex]);
         }
+
+        newColumn.Clear();
         for (var i = 0; i < resultGrid.Count; i++)
             newColumn.Add(new Cell(Status.Dead));
 
-        for (var rowIndex = 1; rowIndex < resultGrid.Count - 1; rowIndex++)
+        for (var rowIndex = 1; rowIndex < maxRows - 1; rowIndex++)
         {
             if (_cells[rowIndex - 1, maxColumns-1].CompareStatus(Status.Alive) &&
                 _cells[rowIndex, maxColumns-1].CompareStatus(Status.Alive) &&

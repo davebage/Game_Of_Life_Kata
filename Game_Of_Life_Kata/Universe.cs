@@ -67,6 +67,41 @@ public class Universe
         if (newRow.Any(x => x.CompareStatus(Status.Alive)))
             resultGrid.Add(newRow);
 
+        var newColumn = new List<Cell>();
+        for (var i = 0; i < resultGrid.Count; i++)
+            newColumn.Add(new Cell(Status.Dead));
+
+        for (var rowIndex = 1; rowIndex < resultGrid.Count - 1; rowIndex++)
+        {
+            if (_cells[rowIndex - 1, 0].CompareStatus(Status.Alive) &&
+               _cells[rowIndex, 0].CompareStatus(Status.Alive) &&
+               _cells[rowIndex + 1, 0].CompareStatus(Status.Alive))
+                newColumn[rowIndex] = new Cell(Status.Alive);
+        }
+
+        if (newColumn.Any(x => x.CompareStatus(Status.Alive)))
+        {
+            for(int newColumnIndex = 0; newColumnIndex < resultGrid.Count; newColumnIndex++)
+                resultGrid[newColumnIndex].Insert(0, newColumn[newColumnIndex]);
+        }
+        for (var i = 0; i < resultGrid.Count; i++)
+            newColumn.Add(new Cell(Status.Dead));
+
+        for (var rowIndex = 1; rowIndex < resultGrid.Count - 1; rowIndex++)
+        {
+            if (_cells[rowIndex - 1, maxColumns-1].CompareStatus(Status.Alive) &&
+                _cells[rowIndex, maxColumns-1].CompareStatus(Status.Alive) &&
+                _cells[rowIndex + 1, maxColumns-1].CompareStatus(Status.Alive))
+                newColumn[rowIndex] = new Cell(Status.Alive);
+        }
+
+        if (newColumn.Any(x => x.CompareStatus(Status.Alive)))
+        {
+            for (int newColumnIndex = 0; newColumnIndex < resultGrid.Count; newColumnIndex++)
+                resultGrid[newColumnIndex].Add(newColumn[newColumnIndex]);
+        }
+
+        newColumn.Clear();
 
         var arrays = new Cell[resultGrid.Count, resultGrid[0].Count];
         for (int i = 0; i < resultGrid.Count; i++)

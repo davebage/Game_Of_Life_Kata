@@ -32,7 +32,7 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive) } });
 
-            var expected = new Cell[,] { {new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -42,7 +42,7 @@ namespace Game_Of_Life_Kata_Tests
             var gameOfLife = new GameOfLife();
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead) } });
-            var expected = new Cell[,] { {new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -53,7 +53,7 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Alive) } });
 
-            var expected = new Cell[,] { {new Cell(Status.Dead), new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -64,7 +64,7 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Dead) } });
 
-            var expected = new Cell[,] { {new Cell(Status.Dead), new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -75,7 +75,7 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Alive) } });
 
-            var expected = new Cell[,] {{ new Cell(Status.Dead), new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -86,7 +86,7 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead) } });
 
-            var expected = new Cell[,] {{ new Cell(Status.Dead), new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -97,7 +97,7 @@ namespace Game_Of_Life_Kata_Tests
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } });
 
-            var expected = new Cell[,] {{ new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -107,7 +107,7 @@ namespace Game_Of_Life_Kata_Tests
             var gameOfLife = new GameOfLife();
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Dead), new Cell(Status.Dead) } });
-            var expected = new Cell[,] {{ new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -117,7 +117,7 @@ namespace Game_Of_Life_Kata_Tests
             var gameOfLife = new GameOfLife();
 
             gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Dead) } });
-            var expected = new Cell[,] { {new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) }};
+            var expected = new Cell[,] { { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) } };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -156,8 +156,18 @@ namespace Game_Of_Life_Kata_Tests
         {
             var gameOfLife = new GameOfLife();
 
-            gameOfLife.Seed(new Cell[,] { { new Cell(Status.Alive) }, { new Cell(Status.Alive) }, { new Cell(Status.Alive) } });
-            var expected = new Cell[,] { { new Cell(Status.Dead) }, { new Cell(Status.Alive) }, { new Cell(Status.Dead) } };
+            gameOfLife.Seed(new Cell[,]
+            {
+                { new Cell(Status.Alive) },
+                { new Cell(Status.Alive) },
+                { new Cell(Status.Alive) }
+            });
+            var expected = new Cell[,]
+            {
+                { new Cell(Status.Dead) , new Cell(Status.Dead), new Cell(Status.Dead) },
+                { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Alive) },
+                { new Cell(Status.Dead) , new Cell(Status.Dead), new Cell(Status.Dead) }
+            };
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -201,7 +211,7 @@ namespace Game_Of_Life_Kata_Tests
                 { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) },
                 { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Alive) } };
 
-            var expected = new Cell[,] { 
+            var expected = new Cell[,] {
                 { new Cell(Status.Dead), new Cell(Status.Alive), new Cell(Status.Dead) },
                 { new Cell(Status.Dead), new Cell(Status.Alive), new Cell(Status.Dead) },
                 { new Cell(Status.Dead), new Cell(Status.Alive), new Cell(Status.Dead) } };
@@ -227,7 +237,7 @@ namespace Game_Of_Life_Kata_Tests
                 { new Cell(Status.Alive), new Cell(Status.Alive) },
                 { new Cell(Status.Dead), new Cell(Status.Dead) }
             };
-                gameOfLife.Seed(seed);
+            gameOfLife.Seed(seed);
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
         }
 
@@ -244,9 +254,9 @@ namespace Game_Of_Life_Kata_Tests
 
             var expected = new Cell[,]
             {
-                { new Cell(Status.Dead), new Cell(Status.Dead) },
-                { new Cell(Status.Alive), new Cell(Status.Alive) },
-                { new Cell(Status.Dead), new Cell(Status.Dead) }
+                { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) },
+                { new Cell(Status.Alive), new Cell(Status.Alive), new Cell(Status.Alive) },
+                { new Cell(Status.Dead), new Cell(Status.Dead), new Cell(Status.Dead) }
             };
             gameOfLife.Seed(seed);
             Assert.That(gameOfLife.Tick(), Is.EqualTo(expected));
@@ -254,7 +264,7 @@ namespace Game_Of_Life_Kata_Tests
 
 
         [Test]
-        public void Generate_New_Top_Row_When_Live_Cell_Needed()
+        public void Generate_New_Rows_When_Live_Cell_Needed()
         {
             var gameOfLife = new GameOfLife();
 
@@ -263,6 +273,7 @@ namespace Game_Of_Life_Kata_Tests
             };
 
             var expected = new Cell[,] {
+                { new Cell(Status.Dead), new Cell(Status.Alive), new Cell(Status.Dead) },
                 { new Cell(Status.Dead), new Cell(Status.Alive), new Cell(Status.Dead) },
                 { new Cell(Status.Dead), new Cell(Status.Alive), new Cell(Status.Dead) } };
 

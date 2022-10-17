@@ -25,7 +25,7 @@ public class Universe
             newRow.Add(new Cell(Status.Dead));
 
         var resultGrid = new List<List<Cell>>();
-
+        
         for (var columnIndex = 1; columnIndex < maxColumns - 1; columnIndex++)
         {
             if (_cells[0, columnIndex - 1].CompareStatus(Status.Alive) &&

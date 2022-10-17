@@ -112,18 +112,21 @@ public class Universe
                 resultGrid[newColumnIndex].Add(newColumn[newColumnIndex]);
         }
 
-        newColumn.Clear();
+        return Transform(resultGrid);
+    }
 
-        var arrays = new Cell[resultGrid.Count, resultGrid[0].Count];
-        for (int i = 0; i < resultGrid.Count; i++)
+    private Cell[,] Transform(List<List<Cell>> resultGrid)
+    {
+        var universeCells = new Cell[resultGrid.Count, resultGrid[0].Count];
+        for (int rowIndex = 0; rowIndex < resultGrid.Count; rowIndex++)
         {
-            for (int j = 0; j < resultGrid[i].Count; j++)
+            for (int columnIndex = 0; columnIndex < resultGrid[rowIndex].Count; columnIndex++)
             {
-                arrays[i, j] = resultGrid[i][j];
+                universeCells[rowIndex, columnIndex] = resultGrid[rowIndex][columnIndex];
             }
         }
 
-        return arrays;
+        return universeCells;
     }
 
     private int CountLiveNeighbours(int rowIndex, int columnIndex)

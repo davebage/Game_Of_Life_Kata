@@ -15,25 +15,69 @@ public class Universe
         var maxRows = _cells.GetLength(0);
         var maxColumns = _cells.GetLength(1);
         var result = new Cell[maxRows, maxColumns];
+        var newRow = new List<Cell>();
+
+        for (var i = 0; i < maxColumns; i++)
+            newRow.Add(new Cell(Status.Dead));
+
+        var resultGrid = new List<List<Cell>>();
+
+        for (var columnIndex = 1; columnIndex < maxColumns - 1; columnIndex++)
+        {
+            if (_cells[0, columnIndex - 1].CompareStatus(Status.Alive) &&
+                _cells[0, columnIndex].CompareStatus(Status.Alive) &&
+                _cells[0, columnIndex + 1].CompareStatus(Status.Alive))
+                newRow[columnIndex] = new Cell(Status.Alive);
+        }
+        if (newRow.Any(x => x.CompareStatus(Status.Alive)))
+            resultGrid.Add(newRow);
 
         for (int rowIndex = 0; rowIndex < maxRows; rowIndex++)
         {
+            var cellRow = new List<Cell>();
+            for (var i = 0; i < maxColumns; i++)
+                cellRow.Add(new Cell(Status.Dead));
+
             for (int columnIndex = 0; columnIndex <= maxColumns - 1; columnIndex++)
             {
                 var liveNeighbours = CountLiveNeighbours(rowIndex, columnIndex);
 
-                result[rowIndex, columnIndex] = new Cell(Status.Dead);
-
                 if (liveNeighbours == 2 && _cells[rowIndex, columnIndex].CompareStatus(Status.Alive))
-                    result[rowIndex, columnIndex] = new Cell(Status.Alive);
+                    cellRow[columnIndex] = new Cell(Status.Alive);
 
                 if (liveNeighbours == 3 && _cells[rowIndex, columnIndex].CompareStatus(Status.Dead))
-                    result[rowIndex, columnIndex] = new Cell(Status.Alive);
+                    cellRow[columnIndex] = new Cell(Status.Alive);
             }
+
+            resultGrid.Add(cellRow);
 
         }
 
-        return result;
+        newRow.Clear();
+        for (var i = 0; i < maxColumns; i++)
+            newRow.Add(new Cell(Status.Dead));
+
+        for (var columnIndex = 1; columnIndex < maxColumns - 1; columnIndex++)
+        {
+            if (_cells[maxRows - 1, columnIndex - 1].CompareStatus(Status.Alive) &&
+                _cells[maxRows - 1, columnIndex].CompareStatus(Status.Alive) &&
+                _cells[maxRows - 1, columnIndex + 1].CompareStatus(Status.Alive))
+                newRow[columnIndex] = new Cell(Status.Alive);
+        }
+        if (newRow.Any(x => x.CompareStatus(Status.Alive)))
+            resultGrid.Add(newRow);
+
+
+        var arrays = new Cell[resultGrid.Count, resultGrid[0].Count];
+        for (int i = 0; i < resultGrid.Count; i++)
+        {
+            for (int j = 0; j < resultGrid[i].Count; j++)
+            {
+                arrays[i, j] = resultGrid[i][j];
+            }
+        }
+
+        return arrays;
     }
 
     private int CountLiveNeighbours(int rowIndex, int columnIndex)

@@ -2,6 +2,8 @@
 
 public class Universe
 {
+    private const int FIRSTROW = 0;
+    private const int FIRSTCOLUMN = 0;
     private readonly Cell[,] _cells;
 
     public Universe(Cell[,] cells)
@@ -9,29 +11,52 @@ public class Universe
         _cells = cells ?? throw new ArgumentNullException(nameof(cells));
     }
 
+    private void GenerateRow(List<List<Cell>> resultGrid, int rowIndex)
+    {
+        var newRow = new List<Cell>();
+
+        for (var i = 0; i < _cells.GetLength(1); i++)
+            newRow.Add(new Cell(Status.Dead));
+
+        for (var columnIndex = 1; columnIndex < _cells.GetLength(1) - 1; columnIndex++)
+        {
+            if (_cells[rowIndex, columnIndex - 1].CompareStatus(Status.Alive) &&
+                _cells[rowIndex, columnIndex].CompareStatus(Status.Alive) &&
+                _cells[rowIndex, columnIndex + 1].CompareStatus(Status.Alive))
+                newRow[columnIndex] = new Cell(Status.Alive);
+        }
+        if (newRow.Any(x => x.CompareStatus(Status.Alive)))
+            resultGrid.Insert(rowIndex, newRow);
+    }
+
+    private void GenerateColumn(List<List<Cell>> resultGrid, int columnIndex)
+    {
+        var newColumn = new List<Cell>();
+        for (var i = 0; i < resultGrid.Count; i++)
+            newColumn.Add(new Cell(Status.Dead));
+
+        for (var rowIndex = 1; rowIndex < _cells.GetLength(0) - 1; rowIndex++)
+        {
+            if (_cells[rowIndex - 1, columnIndex].CompareStatus(Status.Alive) &&
+                _cells[rowIndex, columnIndex].CompareStatus(Status.Alive) &&
+                _cells[rowIndex + 1, columnIndex].CompareStatus(Status.Alive))
+                newColumn[rowIndex] = new Cell(Status.Alive);
+        }
+
+        if (newColumn.Any(x => x.CompareStatus(Status.Alive)))
+        {
+            for (int newColumnIndex = 0; newColumnIndex < resultGrid.Count; newColumnIndex++)
+                resultGrid[newColumnIndex].Insert(columnIndex+1, newColumn[newColumnIndex]);
+        }
+
+    }
 
     public Cell[,] NextGeneration()
     {
         var maxRows = _cells.GetLength(0);
         var maxColumns = _cells.GetLength(1);
 
-        // START - Add new top row
-        var newRow = new List<Cell>();
-
-        for (var i = 0; i < maxColumns; i++)
-            newRow.Add(new Cell(Status.Dead));
-
         var resultGrid = new List<List<Cell>>();
-        
-        for (var columnIndex = 1; columnIndex < maxColumns - 1; columnIndex++)
-        {
-            if (_cells[0, columnIndex - 1].CompareStatus(Status.Alive) &&
-                _cells[0, columnIndex].CompareStatus(Status.Alive) &&
-                _cells[0, columnIndex + 1].CompareStatus(Status.Alive))
-                newRow[columnIndex] = new Cell(Status.Alive);
-        }
-        if (newRow.Any(x => x.CompareStatus(Status.Alive)))
-            resultGrid.Add(newRow);
 
         // Process main grid
         for (int rowIndex = 0; rowIndex < maxRows; rowIndex++)
@@ -55,60 +80,10 @@ public class Universe
 
         }
 
-        // START - Add new bottom row
-        newRow.Clear();
-        for (var i = 0; i < maxColumns; i++)
-            newRow.Add(new Cell(Status.Dead));
-
-        for (var columnIndex = 1; columnIndex < maxColumns - 1; columnIndex++)
-        {
-            if (_cells[maxRows - 1, columnIndex - 1].CompareStatus(Status.Alive) &&
-                _cells[maxRows - 1, columnIndex].CompareStatus(Status.Alive) &&
-                _cells[maxRows - 1, columnIndex + 1].CompareStatus(Status.Alive))
-                newRow[columnIndex] = new Cell(Status.Alive);
-        }
-        if (newRow.Any(x => x.CompareStatus(Status.Alive)))
-            resultGrid.Add(newRow);
-
-
-
-        // START - Add new left column
-        var newColumn = new List<Cell>();
-        for (var i = 0; i < resultGrid.Count; i++)
-            newColumn.Add(new Cell(Status.Dead));
-
-        for (var rowIndex = 1; rowIndex < maxRows - 1; rowIndex++)
-        {
-            if (_cells[rowIndex - 1, 0].CompareStatus(Status.Alive) &&
-               _cells[rowIndex, 0].CompareStatus(Status.Alive) &&
-               _cells[rowIndex + 1, 0].CompareStatus(Status.Alive))
-                newColumn[rowIndex] = new Cell(Status.Alive);
-        }
-
-        if (newColumn.Any(x => x.CompareStatus(Status.Alive)))
-        {
-            for(int newColumnIndex = 0; newColumnIndex < resultGrid.Count; newColumnIndex++)
-                resultGrid[newColumnIndex].Insert(0, newColumn[newColumnIndex]);
-        }
-
-        newColumn.Clear();
-        for (var i = 0; i < resultGrid.Count; i++)
-            newColumn.Add(new Cell(Status.Dead));
-
-        for (var rowIndex = 1; rowIndex < maxRows - 1; rowIndex++)
-        {
-            if (_cells[rowIndex - 1, maxColumns-1].CompareStatus(Status.Alive) &&
-                _cells[rowIndex, maxColumns-1].CompareStatus(Status.Alive) &&
-                _cells[rowIndex + 1, maxColumns-1].CompareStatus(Status.Alive))
-                newColumn[rowIndex] = new Cell(Status.Alive);
-        }
-
-        if (newColumn.Any(x => x.CompareStatus(Status.Alive)))
-        {
-            for (int newColumnIndex = 0; newColumnIndex < resultGrid.Count; newColumnIndex++)
-                resultGrid[newColumnIndex].Add(newColumn[newColumnIndex]);
-        }
-
+        GenerateRow(resultGrid, FIRSTROW);
+        GenerateRow(resultGrid, maxRows - 1);
+        GenerateColumn(resultGrid, FIRSTCOLUMN);
+        GenerateColumn(resultGrid, maxColumns - 1);
         return Transform(resultGrid);
     }
 

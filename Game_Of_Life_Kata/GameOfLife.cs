@@ -4,16 +4,16 @@
     {
         private Universe _universe;
 
-        public bool Seed(Cell[,] seedPattern)
+        public bool Seed(List<Cell> seedPattern)
         {
-            if (seedPattern.Length == 0) throw new ArgumentException();
+            if (seedPattern.Count == 0) throw new ArgumentException();
 
             _universe = new Universe(seedPattern);
  
             return true;
         }
 
-        public Cell[,] Tick()
+        public List<Cell> Tick()
         {
             var result = _universe.NextGeneration();
 

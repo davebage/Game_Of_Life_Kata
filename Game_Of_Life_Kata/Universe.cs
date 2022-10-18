@@ -14,10 +14,7 @@ public class Universe
     {
         var maxRows = _cells.GetLength(0);
         var maxColumns = _cells.GetLength(1);
-        var result = new Cell[maxRows, maxColumns];
 
-        
-        
         // START - Add new top row
         var newRow = new List<Cell>();
 
